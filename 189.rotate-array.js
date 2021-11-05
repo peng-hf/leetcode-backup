@@ -10,6 +10,19 @@
  * @param {number} k
  * @return {void} Do not return anything, modify nums in-place instead.
  */
+
+ function rotate3(nums, k) { // Space O(n). Time O(n)
+  if (k === 0 || nums.length === 1) return nums
+  k = k % nums.length
+  const right = nums.slice(nums.length - k)
+  const left = nums.slice(0, nums.length - k)
+  const reversed = right.concat(left)
+  
+  for (let i = 0; i < nums.length; ++i) {
+      nums[i] = reversed[i]
+  }
+} 
+
 var rotate2 = function(nums, k) { // Space: O(n), Time: O(n)
   if (nums.length < 2 || k === 0) return
   var mapIdx = {}
