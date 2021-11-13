@@ -15,7 +15,7 @@ var longestCommonPrefix = function(strs) {
 
   var i = 0, j = 1
   while (i < strs[0].length) {
-    j = 0
+    j = 1
     while (j < strs.length) {
       if (i === strs[j].length || strs[0][i] !== strs[j][i]) {
         return prefix

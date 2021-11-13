@@ -32,25 +32,27 @@ var countAndSay = function(n) { // Space O(1), Time O(n^2)
   return say
 };
 
-var recurse = function(n, str) {
-  if (n === 0) return str
-  
-  var say = '', i = 0, j = 0, count = 0
-  while (j < str.length) {
-    if (str[i] === str[j]) count++
-    else {
-      say += count + str[i]
-      i = j
-      count = 1
-    }
-    j++
-  }
-  say += count + str[i]
-  return recurse(n - 1, say)
-}
 
-var countAndSay1 = function(n) {
-  return recurse(n - 1, '1')
+var countAndSay = function(n) {
+  function recurse(n, say) {
+    if (n === 1) return say
+    
+    var i = 0, j = 0, count = 0, tmp = ''
+    while (j < say.length) {
+      if (say[j] === say[i]) {
+        count++
+        j++
+      } else {
+        tmp += count + say[i]
+        i = j
+        count = 0
+      }
+    }
+    tmp += count + say[i]
+    return recurse(n - 1, tmp)
+  }
+  
+  return recurse(n, '1')
 }
 // @lc code=end
 
