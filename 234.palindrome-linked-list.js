@@ -37,8 +37,21 @@ function isPalindrome(head) {
 };
 
 
-// recursive TODO
-function isPalindrome(head) {}
+// recursive
+var isPalindrome = function(head) {
+  var first = head, result = true
+  
+  function recurse(node) {
+    if (node !== null) {
+      recurse(node.next)
+      if (first.val !== node.val && result) result = false
+      first = first.next
+    }
+  }
+  
+  recurse(head)
+  return result
+}
 
 
 
@@ -68,29 +81,30 @@ function reverse(head) {
   return prev
 }
 
-function isPalindrome(head) {
-  if (head === null || head.next === null) return true
-  
-  // Find last node of the first half and reversed second half
-  const lastNodeFirst = getLastNodeFirstHalf(head)
-  const firstNodeSecondReversed = reverse(lastNodeFirst.next)
+var isPalindrome = function(head) {
+  var lastNodeFirstHalf = getLastNodeFirstHalf(head)
 
+   // Find last node of the first half and reversed second half
+  var second = reverse(lastNodeFirstHalf.next)
+  var first = head
+  
+  var isPalindrome = true
+  
   // Step through first and second pointer until B ends
   //   If different then, it's not a palindrome, saved result to False
   //   If not, continue
-  var result = true, first = head, second = firstNodeSecondReversed
   while (second !== null) {
     if (first.val !== second.val) {
-      result = false
+      isPalindrome = false
       break
-    } 
+    }
     first = first.next
     second = second.next
   }
-
+  
   // Set last node first half pointer next to re-reversed second half
-  lastNodeFirst.next = reverse(firstNodeSecondReversed)
-  return result
+  lastNodeFirstHalf.next = reverse(lastNodeFirstHalf.next)
+  return isPalindrome
 }
 // @lc code=end
 
