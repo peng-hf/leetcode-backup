@@ -16,43 +16,29 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-//  var swapPairs = function(head) {
-//   var cur = head
-//   while (cur !== null && cur.next !== null) {
-//     const curVal = cur.val
-//     cur.val = cur.next.val
-//     cur.next.val = curVal
-//     cur = cur.next.next
-//   }
-//   return head
-// };
 
-function swapPairs(head) {
-  function recurse(ptr) {
-    if (ptr === null || ptr.next === null) return head
-    const tmpVal = ptr.val
-    ptr.val = ptr.next.val
-    ptr.next.val = tmpVal
-    recurse(ptr.next.next)
-  }
-  
-  recurse(head)
-  return head
-}
+// Iterative
+ var swapPairs = function(head) {
+   if (head === null || head.next === null) return head
+   var prev = head, cur = head.next, last = null
+   while (true) {
+     const next = cur.next
+     cur.next = prev
+     prev.next = next
+     if (last !== null) last.next = prev
+     
 
-function swapPairs(head) {
-  function recurse(ptr) {
-    if (ptr === null || ptr.next === null) return head
-    const first = ptr
-    const second = ptr.next
-    
-    first.next = swapPairs(second.next)
-    second.next = first
-    
-    return second
-  }
+     if (prev === head) head = cur
+     if (next !== null && next.next !== null) {
+        last = cur
+        prev = next
+        cur = prev.next
+     } else break
+   }
+   return head
+ }
 
-  return recurse(head)
-}
+
+
 // @lc code=end
 
